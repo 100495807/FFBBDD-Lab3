@@ -104,3 +104,12 @@ END;
 SELECT *
 FROM orders_anonym
 WHERE orderdate BETWEEN TO_DATE('01/01/23', 'DD/MM/YY') AND TO_DATE('31/12/23', 'DD/MM/YY');
+
+
+
+-- para ver tamaño cubos, cluster, bloques...
+--Para esto quitar el autotrace
+select * from user_tables;
+
+--este es el que nos interesa
+select table_name, avg_row_len, num_rows, blocks from user_tables;
