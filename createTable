@@ -284,3 +284,46 @@ CREATE TABLE Client_Lines (
 
 select table_name from user_tables;
 
+
+
+CREATE INDEX idx_posts_barcode ON Posts(barcode);
+drop index idx_posts_barcode;
+CREATE INDEX idx_posts_product ON Posts(product);
+drop index idx_posts_product;
+CREATE INDEX idx_posts_score ON Posts(score);
+drop index idx_posts_score;
+CREATE INDEX idx_orders_clients_username ON Orders_Clients(username);
+drop index idx_orders_clients_username;
+
+-- Crear un índice en la tabla orders_clients para la columna orderdate
+CREATE INDEX idx_orderdate_orders_clients ON orders_clients(orderdate);
+
+-- Crear un índice en la tabla orders_clients para la columna username
+CREATE INDEX idx_username_orders_clients ON orders_clients(username);
+
+-- Crear un índice en la tabla orders_clients para la columna town
+CREATE INDEX idx_town_orders_clients ON orders_clients(town);
+
+-- Crear un índice en la tabla orders_clients para la columna country
+CREATE INDEX idx_country_orders_clients ON orders_clients(country);
+
+-- Crear un índice en la tabla client_lines para la columna orderdate
+CREATE INDEX idx_orderdate_client_lines ON client_lines(orderdate);
+
+-- Crear un índice en la tabla client_lines para la columna username
+CREATE INDEX idx_username_client_lines ON client_lines(username);
+
+-- Crear un índice en la tabla client_lines para la columna town
+CREATE INDEX idx_town_client_lines ON client_lines(town);
+
+-- Crear un índice en la tabla client_lines para la columna country
+CREATE INDEX idx_country_client_lines ON client_lines(country);
+
+DROP INDEX idx_orderdate_orders_clients;
+DROP INDEX idx_username_orders_clients;
+DROP INDEX idx_town_orders_clients;
+DROP INDEX idx_country_orders_clients;
+DROP INDEX idx_orderdate_client_lines;
+DROP INDEX idx_username_client_lines;
+DROP INDEX idx_town_client_lines;
+DROP INDEX idx_country_client_lines;
