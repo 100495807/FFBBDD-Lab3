@@ -248,6 +248,9 @@ CREATE TABLE Client_Cards (
 );
 
 
+CREATE CLUSTER client_cluster (username VARCHAR2(30));
+
+
 CREATE TABLE Orders_Clients (
   orderdate     DATE,
   username      VARCHAR2(30),
@@ -261,7 +264,8 @@ CREATE TABLE Orders_Clients (
   CONSTRAINT fk_order_address FOREIGN KEY(username,town,country) REFERENCES Client_Addresses,
   CONSTRAINT fk_order_bill FOREIGN KEY(username,bill_town,bill_country) 
                 REFERENCES Client_Addresses
-);
+)
+CLUSTER client_cluster (username);
 
 CREATE TABLE Client_Lines (
   orderdate     DATE,
@@ -280,21 +284,20 @@ CREATE TABLE Client_Lines (
   CONSTRAINT fk_clientlines_references FOREIGN KEY(barcode) REFERENCES References,
   CONSTRAINT fk_lines_creditcard FOREIGN KEY(cardnum) REFERENCES Client_Cards,
   CONSTRAINT D_clientcards CHECK (UPPER(pay_type)!='CREDIT CARD' OR cardnum IS NOT NULL)
-);
+)
+CLUSTER client_cluster (username);
 
 select table_name from user_tables;
-
+CREATE INDEX idx_client_cluster_username ON CLUSTER client_cluster;
 
 
 CREATE INDEX idx_posts_barcode ON Posts(barcode);
-drop index idx_posts_barcode;
 CREATE INDEX idx_posts_product ON Posts(product);
-drop index idx_posts_product;
 CREATE INDEX idx_posts_score ON Posts(score);
-drop index idx_posts_score;
 CREATE INDEX idx_orders_clients_username ON Orders_Clients(username);
-drop index idx_orders_clients_username;
 
+
+/*Comento los indices para la ultima consulta porque esta hecha con cluster
 -- Crear un índice en la tabla orders_clients para la columna orderdate
 CREATE INDEX idx_orderdate_orders_clients ON orders_clients(orderdate);
 
@@ -318,7 +321,12 @@ CREATE INDEX idx_town_client_lines ON client_lines(town);
 
 -- Crear un índice en la tabla client_lines para la columna country
 CREATE INDEX idx_country_client_lines ON client_lines(country);
+*/
 
+
+drop index idx_posts_barcode;
+drop index idx_posts_score;
+drop index idx_orders_clients_username;
 DROP INDEX idx_orderdate_orders_clients;
 DROP INDEX idx_username_orders_clients;
 DROP INDEX idx_town_orders_clients;

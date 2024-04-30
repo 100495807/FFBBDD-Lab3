@@ -113,3 +113,6 @@ select * from user_tables;
 
 --este es el que nos interesa
 select table_name, avg_row_len, num_rows, blocks from user_tables;
+
+
+exec pkg_costes.run_test(10);
