@@ -289,47 +289,22 @@ CLUSTER client_cluster (username);
 
 select table_name from user_tables;
 CREATE INDEX idx_client_cluster_username ON CLUSTER client_cluster;
-drop cluster client_cluster;
-drop index idx_client_cluster_username;
+
 
 CREATE INDEX idx_posts_barcode ON Posts(barcode);
 CREATE INDEX idx_posts_product ON Posts(product);
 CREATE INDEX idx_posts_score ON Posts(score);
-CREATE INDEX idx_orders_clients_username ON Orders_Clients(username);
 
+CREATE INDEX idx_ordersClients_username ON orders_clients(username);
+CREATE INDEX idx_clientLines_comb ON client_lines(orderdate, username, town, country);
 
-Comento los indices para la ultima consulta porque esta hecha con cluster
--- Crear un índice en la tabla orders_clients para la columna orderdate
-CREATE INDEX idx_orderdate_orders_clients ON orders_clients(orderdate);
--- Crear un índice en la tabla orders_clients para la columna username
-CREATE INDEX idx_username_orders_clients ON orders_clients(username);
--- Crear un índice en la tabla orders_clients para la columna town
-CREATE INDEX idx_town_orders_clients ON orders_clients(town);
--- Crear un índice en la tabla orders_clients para la columna country
-CREATE INDEX idx_country_orders_clients ON orders_clients(country);
--- Crear un índice en la tabla client_lines para la columna orderdate
-CREATE INDEX idx_orderdate_client_lines ON client_lines(orderdate);
--- Crear un índice en la tabla client_lines para la columna username
-CREATE INDEX idx_username_client_lines ON client_lines(username);
--- Crear un índice en la tabla client_lines para la columna town
-CREATE INDEX idx_town_client_lines ON client_lines(town);
--- Crear un índice en la tabla client_lines para la columna country
-CREATE INDEX idx_country_client_lines ON client_lines(country);
-
-CREATE INDEX idx_orders_clients_username ON orders_clients(username);
-CREATE INDEX idx_client_lines_order_user_town_country ON client_lines(orderdate, username, town, country);
-drop index idx_client_lines_order_user_town_country;
-drop index idx_client_cluster_username;
-
-
+drop idx_client_cluster_username;
 drop index idx_posts_barcode;
+drop index idx_posts_product;
 drop index idx_posts_score;
-drop index idx_orders_clients_username;
-DROP INDEX idx_orderdate_orders_clients;
-DROP INDEX idx_username_orders_clients;
-DROP INDEX idx_town_orders_clients;
-DROP INDEX idx_country_orders_clients;
-DROP INDEX idx_orderdate_client_lines;
-DROP INDEX idx_username_client_lines;
-DROP INDEX idx_town_client_lines;
-DROP INDEX idx_country_client_lines;
+drop index idx_ordersClients_username;
+drop index idx_clientLines_comb;
+drop cluster client_cluster;
+
+exec PKG_COSTES.RUN_TEST(20)
+
