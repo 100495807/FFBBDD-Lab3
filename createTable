@@ -5,6 +5,7 @@
 -- - TABLES DESTRUCTION  - - - - - - -
 -- -----------------------------------
 
+
 DROP TABLE Client_Lines CASCADE CONSTRAINTS;
 DROP TABLE Orders_Clients CASCADE CONSTRAINTS;
 DROP TABLE Client_Cards CASCADE CONSTRAINTS;
@@ -21,6 +22,13 @@ DROP TABLE References  CASCADE CONSTRAINTS;
 DROP TABLE Products CASCADE CONSTRAINTS;
 DROP TABLE Origins CASCADE CONSTRAINTS;
 DROP TABLE Varietals CASCADE CONSTRAINTS;
+drop idx_client_cluster_username;
+drop index idx_posts_barcode;
+drop index idx_posts_product;
+drop index idx_posts_score;
+drop index idx_ordersClients_username;
+drop index idx_clientLines_comb;
+drop cluster client_cluster;
 
 
 
