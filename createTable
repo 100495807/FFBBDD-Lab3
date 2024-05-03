@@ -306,13 +306,6 @@ CREATE INDEX idx_posts_score ON Posts(score);
 CREATE INDEX idx_ordersClients_username ON orders_clients(username);
 CREATE INDEX idx_clientLines_comb ON client_lines(orderdate, username, town, country);
 
-drop idx_client_cluster_username;
-drop index idx_posts_barcode;
-drop index idx_posts_product;
-drop index idx_posts_score;
-drop index idx_ordersClients_username;
-drop index idx_clientLines_comb;
-drop cluster client_cluster;
 
 exec PKG_COSTES.RUN_TEST(20)
 
